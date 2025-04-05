@@ -2,6 +2,7 @@ name: CICD With Docker
 on:
   push:
     branches: [ "main" ]
+    
 jobs:
   build:
     runs-on: ubuntu-latest
