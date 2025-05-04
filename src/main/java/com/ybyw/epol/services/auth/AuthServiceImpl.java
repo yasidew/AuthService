@@ -18,7 +18,7 @@ import java.util.List;
 @Service
 public class AuthServiceImpl implements AuthService{
     @Autowired
-    private UserRepository userRepository;
+    UserRepository userRepository;
 
     //    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
