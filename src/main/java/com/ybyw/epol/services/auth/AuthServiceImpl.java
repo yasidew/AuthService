@@ -20,7 +20,6 @@ public class AuthServiceImpl implements AuthService{
     @Autowired
     UserRepository userRepository;
 
-    //    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
 

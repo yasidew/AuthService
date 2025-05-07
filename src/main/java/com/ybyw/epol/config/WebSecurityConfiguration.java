@@ -25,9 +25,6 @@ public class WebSecurityConfiguration {
     }
 
 
-
-
-
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
