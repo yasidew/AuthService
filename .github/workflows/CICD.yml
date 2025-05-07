@@ -19,11 +19,16 @@ jobs:
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} # Fetch Docker password from secrets
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
         # This command logs into Docker Hub using the credentials stored in GitHub Secrets. The password is piped to login securely.
+
+      # Step 3: Build the Docker image
       - name: Build the Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/authservice:latest .
+        # This command builds a Docker image using the current directory (.) and tags it as 'authservice:latest' with the user's Docker Hub username.
 
+      # Step 4: Push the Docker image to Docker Hub
       - name: Push to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/authservice:latest
+        # Push the newly built image to Docker Hub, where it can be pulled by the deployment job or others.
 
   deploy:
     runs-on: self-hosted
