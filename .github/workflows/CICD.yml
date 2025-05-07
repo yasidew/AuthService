@@ -1,22 +1,24 @@
+# Trigger this workflow on pushes to the main branch
 name: CICD With Docker
 on:
   push:
-    branches: [ "main" ]
+    branches: [ "main" ] # This ensures that this workflow is triggered only when changes are pushed to the 'main' branch.
 
-
+  # Job for building and pushing the Docker image to Docker Hub
 jobs:
   build:
-    runs-on: ubuntu-latest
-    steps:
+    runs-on: ubuntu-latest # Use the latest Ubuntu runner for the build environment
+    steps: # Step 1: Checkout the repository to access the files in the repo
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v4 # This action checks out the code from the repository
 
+      # This action checks out the code from the repository
       - name: Login to Docker Hub
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }} # Fetch Docker username from secrets
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} # Fetch Docker password from secrets
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-
+        # This command logs into Docker Hub using the credentials stored in GitHub Secrets. The password is piped to login securely.
       - name: Build the Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/authservice:latest .
 
