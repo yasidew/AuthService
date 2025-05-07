@@ -23,10 +23,6 @@ public class AuthServiceImpl implements AuthService{
     //    @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
 
-    //new changes
-
-//    @Autowired
-//    private UserRegistrationSource userRegistrationSource;
 
     public UserDto createUser(SignupRequest signupRequest){
         User user = new User();
@@ -41,11 +37,6 @@ public class AuthServiceImpl implements AuthService{
         userDto.setId(createUser.getId());
         userDto.setEmail(createUser.getEmail()); // set email
         userDto.setName(createUser.getName()); // set name
-
-
-        //new changes
-        // Create and send the message
-//        userRegistrationSource.userRegistration().apply(userDto);
 
         return userDto;
     }
