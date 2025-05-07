@@ -100,10 +100,6 @@ public class AuthController {
 
         UserDto userDto = authService.createUser(signupRequest);
 
-        //new changes
-        // Create and send the message
-//        userRegistrationSource.userRegistration().apply(userDto);
-
         return new ResponseEntity<>(userDto, HttpStatus.OK);
     }
 }
