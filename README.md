@@ -19,9 +19,9 @@ This repository contains the **Authentication Service** for a larger cloud-based
 
 **System Overview:**
 
-*Add your system architecture diagram here.*
 
-\![image](https://github.com/user-attachments/assets/19a22663-dab1-485d-a46d-2c54a0940c4f)
+
+![image](https://github.com/user-attachments/assets/19a22663-dab1-485d-a46d-2c54a0940c4f)
 
 
 ---
