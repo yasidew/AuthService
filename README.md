@@ -1,9 +1,3 @@
-Awesome idea 💪—a good README will make your repo look professional and clear!
-
-Here’s a **ready-to-copy README.md** you can paste directly into your GitHub repo. I’ve left a **placeholder for your system diagram**.
-
----
-
 ````markdown
 # Auth Service 🚀
 
