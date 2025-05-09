@@ -1,86 +1,80 @@
-````markdown
-# Auth Service 🚀
+---
 
-This repository contains the **Authentication Service** for a larger cloud-based application. The service is built using **Java (Spring Boot)** and provides secure user authentication, registration, and authorization functionality. It is fully Dockerized and integrated into a CI/CD pipeline for automated deployment.
+**Auth Service 🚀**
+
+This repository contains the **Authentication Service** for a larger cloud-based application. The service is built using **Java (Spring Boot)** and provides secure user authentication, registration, and authorization. It is fully Dockerized and integrated into a CI/CD pipeline for automated deployment.
 
 ---
 
-## 📋 Features
+**Features:**
 
-- 🔒 **User Authentication & Authorization** (JWT-based)
-- 📝 **User Registration**
-- 📦 **Dockerized Deployment**
-- ⚙️ **CI/CD Pipeline** with GitHub Actions + Docker Hub
-- ☁️ **Deployed on AWS EC2**
-- 🔍 **Static Code Analysis** via SonarCloud
-- 🔐 **Secure DB Connection** to AWS RDS (MySQL)
-
----
-
-## 🖥️ System Overview
-
-_Add your system architecture diagram here 👇_
-
-![System Overview](path/to/your/diagram.png)
+* **User Authentication & Authorization (JWT-based)**
+* **User Registration**
+* **Dockerized Deployment**
+* **CI/CD Pipeline with GitHub Actions + Docker Hub**
+* **Deployed on AWS EC2**
+* **Static Code Analysis via SonarCloud**
+* **Secure Database Connection to AWS RDS (MySQL)**
 
 ---
 
-## ⚙️ Tech Stack
+**System Overview:**
 
-- **Java 17 (Spring Boot)**
-- **MySQL (AWS RDS)**
-- **Docker + Docker Hub**
-- **GitHub Actions (CI/CD)**
-- **AWS EC2 (Ubuntu)**
-- **SonarCloud (Static Code Analysis)**
+*Add your system architecture diagram here.*
+
+\[System Diagram Placeholder: Insert your diagram image here]
 
 ---
 
-## 🐳 Docker Setup
+**Tech Stack:**
 
-The service is containerized using the following **Dockerfile:**
+* **Java 17 (Spring Boot)**
+* **MySQL (AWS RDS)**
+* **Docker & Docker Hub**
+* **GitHub Actions (CI/CD Pipeline)**
+* **AWS EC2 (Ubuntu Server)**
+* **SonarCloud (Code Analysis)**
 
-```dockerfile
+---
+
+**Docker Setup:**
+
+The service is containerized using the following Dockerfile:
+
+```
 FROM openjdk:17-jdk-slim
 WORKDIR /app
 COPY target/epol-0.0.1-SNAPSHOT.jar app.jar
 EXPOSE 8080
 ENTRYPOINT ["java", "-jar", "app.jar"]
-````
-
----
-
-### 📦 How to Build & Run Locally
-
-1️⃣ **Build the Docker image:**
-
-```bash
-docker build -t authservice:latest .
-```
-
-2️⃣ **Run the container:**
-
-```bash
-docker run -d -p 8080:8080 --name authservice-container authservice:latest
 ```
 
 ---
 
-## 🚀 CI/CD Pipeline
+**How to Build & Run Locally:**
 
-This project uses **GitHub Actions** for continuous integration and deployment:
+1. **Build the Docker image:**
 
-* **On Push:**
+   ```
+   docker build -t authservice:latest .
+   ```
 
-  * Runs code checkout.
-  * Performs SonarCloud scan.
-  * Builds the Docker image.
-  * Pushes the image to Docker Hub.
+2. **Run the container:**
 
-* **On Deploy:**
+   ```
+   docker run -d -p 8080:8080 --name authservice-container authservice:latest
+   ```
 
-  * AWS EC2 instance (self-hosted runner) pulls the latest Docker image.
-  * Stops the old container and runs the new one automatically.
+---
+
+**CI/CD Pipeline:**
+
+The CI/CD pipeline is automated using **GitHub Actions**. When changes are pushed to the `main` branch:
+
+* The code is checked out.
+* SonarCloud performs a static code analysis.
+* The Docker image is built and pushed to Docker Hub.
+* The AWS EC2 instance (self-hosted runner) automatically pulls the latest image and redeploys the container.
 
 ---
 
