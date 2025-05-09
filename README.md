@@ -1,10 +1,9 @@
----
 
 **Auth Service 🚀**
 
 This repository contains the **Authentication Service** for a larger cloud-based application. The service is built using **Java (Spring Boot)** and provides secure user authentication, registration, and authorization. It is fully Dockerized and integrated into a CI/CD pipeline for automated deployment.
 
----
+
 
 **Features:**
 
