@@ -110,6 +110,7 @@ class AuthServiceImplTest {
         // Attempt to create instructor account
         authService.createInstructorAccount();
 
+        // Ensure no save was performed since user already exists
         verify(userRepository, never()).save(any());
     }
 
