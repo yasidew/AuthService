@@ -23,7 +23,7 @@ jobs:
       # Step 3: Build the Docker image
       - name: Build the Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/authservice:latest .
-        # This command builds a Docker image using the current directory (.) tags it as 'authservice:latest' with the user's Docker Hub username.
+        # This command builds a Docker image using the current directory (.) and tags it as 'authservice:latest' with the user's Docker Hub username.
 
       # Step 4: Push the Docker image to Docker Hub
       - name: Push to Docker Hub
