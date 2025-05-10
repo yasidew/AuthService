@@ -84,6 +84,7 @@ class AuthServiceImplTest {
         when(userRepository.findFirstByEmail("notfound@example.com"))
                 .thenReturn(Optional.empty());
 
+        // Verify that the method returns false
         assertFalse(authService.hasUserWithEmail("notfound@example.com"));
     }
 
