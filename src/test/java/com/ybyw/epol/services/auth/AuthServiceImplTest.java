@@ -90,6 +90,7 @@ class AuthServiceImplTest {
 
     @Test
     void createInstructorAccount_shouldCreateIfNotExists() {
+        // Simulate that no instructor exists in the DB
         when(userRepository.findByRole(UserRole.INSTRUCTOR)).thenReturn(null);
 
         authService.createInstructorAccount();
