@@ -17,6 +17,7 @@ import static org.mockito.Mockito.*;
 
 class AuthServiceImplTest {
 
+    // Mocked dependency for database operations
     @Mock
     private UserRepository userRepository;
 
