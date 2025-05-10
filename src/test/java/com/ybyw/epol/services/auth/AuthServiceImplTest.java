@@ -25,6 +25,7 @@ class AuthServiceImplTest {
     @InjectMocks
     private AuthServiceImpl authService;
 
+    // Used to capture the User object passed to repository save
     @Captor
     private ArgumentCaptor<User> userCaptor;
 
