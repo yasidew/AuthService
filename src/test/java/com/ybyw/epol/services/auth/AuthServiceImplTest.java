@@ -34,7 +34,7 @@ class AuthServiceImplTest {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
         authService = new AuthServiceImpl(); // Manually instantiating the service
-        authService.userRepository = userRepository;
+        authService.userRepository = userRepository; // Injecting the mock manually
     }
 
     @Test
