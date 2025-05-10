@@ -37,7 +37,7 @@ public class AuthController {
         this.userRepository = userRepository;
         this.jwtUtil = jwtUtil;
     }
-// Hello This is dummy
+// Hello This is dummy data
     private final AuthenticationManager authenticationManager;
     private final UserDetailsService userDetailsService;
     private final UserRepository userRepository;
