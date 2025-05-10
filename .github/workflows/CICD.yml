@@ -1,50 +1,39 @@
-# Trigger this workflow on pushes to the main branch
 name: CICD With Docker
 on:
   push:
-    branches: [ "main" ] # This ensures that this workflow is triggered only when changes are pushed to the 'main' branch.
+    branches: [ "main" ]
 
-  # Job for building and pushing the Docker image to Docker Hub
 jobs:
   build:
     runs-on: ubuntu-latest
-    steps: # Step 1: Checkout the repository to access the files in the repo
+    steps:
       - name: Checkout repository
-        uses: actions/checkout@v4 # This action checks out the code from the repository
+        uses: actions/checkout@v4
 
-      # This action checks out the code from the repository
       - name: Login to Docker Hub
         env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }} # Fetch Docker username from secrets
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }} # Fetch Docker password from secrets
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
-        # This command logs into Docker Hub using the credentials stored in GitHub Secrets. The password is piped to login securely.
 
-      # Step 3: Build the Docker
       - name: Build the Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/authservice:latest .
 
-      # Step 4: Push the Docker image to Docker Hub
       - name: Push to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/authservice:latest
-        # Push the newly built image to Docker Hub, where it can be pulled by the deployment job or others.
 
-  # Job for deploying the Docker container to the self-hosted machine
   deploy:
     runs-on: self-hosted
     needs: build
     steps:
-      # Step 1: Pull the latest Docker image from Docker Hub
       - name: Pull the latest Docker image
         run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/authservice:latest
 
-      # Step 2: Stop and remove any old Docker container (if running)
       - name: Stop and remove old Docker container (if running)
         run: |
           sudo docker stop authservice-container || true
           sudo docker rm -f authservice-container || true
 
-      # Step 3: Run a new Docker container from the updated image
       - name: Run new Docker container
         run: sudo docker run -d --restart unless-stopped -p 8080:8080 --name authservice-container ${{ secrets.DOCKER_USERNAME }}/authservice:latest
 
