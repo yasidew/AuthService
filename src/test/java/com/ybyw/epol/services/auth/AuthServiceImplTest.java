@@ -70,7 +70,7 @@ class AuthServiceImplTest {
 
     @Test
     void hasUserWithEmail_shouldReturnTrueIfUserExists() {
-        // Arrange
+        // Arrange - Simulate that a user exists for the given email
         when(userRepository.findFirstByEmail("exists@example.com"))
                 .thenReturn(Optional.of(new User()));
 
