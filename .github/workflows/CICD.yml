@@ -20,7 +20,7 @@ jobs:
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
         # This command logs into Docker Hub using the credentials stored in GitHub Secrets. The password is piped to login securely.
 
-
+      # Step 3: Build the Docker image
       - name: Build the Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/authservice:latest .
 
