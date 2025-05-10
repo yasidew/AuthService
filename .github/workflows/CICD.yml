@@ -26,6 +26,13 @@ jobs:
     runs-on: self-hosted
     needs: build
     steps:
+      - name: Free up disk space on self-hosted runner
+        run: |
+          docker system prune -af
+          docker volume prune -f
+          docker network prune -f
+          df -h  # Show disk space after cleanup
+
       - name: Pull the latest Docker image
         run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/authservice:latest
 
@@ -36,4 +43,3 @@ jobs:
 
       - name: Run new Docker container
         run: sudo docker run -d --restart unless-stopped -p 8080:8080 --name authservice-container ${{ secrets.DOCKER_USERNAME }}/authservice:latest
-
