@@ -107,6 +107,7 @@ class AuthServiceImplTest {
         // Simulate instructor already exists
         when(userRepository.findByRole(UserRole.INSTRUCTOR)).thenReturn(new User());
 
+        // Attempt to create instructor account
         authService.createInstructorAccount();
 
         verify(userRepository, never()).save(any());
