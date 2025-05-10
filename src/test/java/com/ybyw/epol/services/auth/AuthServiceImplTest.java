@@ -33,7 +33,7 @@ class AuthServiceImplTest {
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
-        authService = new AuthServiceImpl();
+        authService = new AuthServiceImpl(); // Manually instantiating the service
         authService.userRepository = userRepository;
     }
 
