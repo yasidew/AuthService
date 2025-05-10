@@ -60,7 +60,11 @@ class AuthServiceImplTest {
         assertNotNull(result);
         assertEquals("test@example.com", result.getEmail());
         assertEquals("Test User", result.getName());
+
+        // Verify that save() was called and capture the user object passed
         verify(userRepository).save(userCaptor.capture());
+
+        // Ensure the default role is correctly set as LEARNER
         assertEquals(UserRole.LEARNER, userCaptor.getValue().getRole());
     }
 
