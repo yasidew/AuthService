@@ -45,6 +45,7 @@ class AuthServiceImplTest {
         request.setName("Test User");
         request.setPassword("password");
 
+        // Define the behavior of save - returning a mocked saved user
         User savedUser = new User();
         savedUser.setId(1L);
         savedUser.setEmail("test@example.com");
@@ -55,7 +56,7 @@ class AuthServiceImplTest {
         // Act
         UserDto result = authService.createUser(request);
 
-        // Assert
+        // Assert - Validate the result is not null and contains expected values
         assertNotNull(result);
         assertEquals("test@example.com", result.getEmail());
         assertEquals("Test User", result.getName());
