@@ -116,6 +116,7 @@ class AuthServiceImplTest {
 
     @Test
     void createAdminAccount_shouldCreateIfNotExists() {
+        // Simulate no admin user exists
         when(userRepository.findByRole(UserRole.ADMIN)).thenReturn(null);
 
         authService.createAdminAccount();
