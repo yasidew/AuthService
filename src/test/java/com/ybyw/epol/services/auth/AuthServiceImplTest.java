@@ -96,6 +96,7 @@ class AuthServiceImplTest {
         // Call the method to create instructor
         authService.createInstructorAccount();
 
+        // Verify save was called and capture the instructor created
         verify(userRepository).save(userCaptor.capture());
         assertEquals("instructor", userCaptor.getValue().getName());
         assertEquals(UserRole.INSTRUCTOR, userCaptor.getValue().getRole());
