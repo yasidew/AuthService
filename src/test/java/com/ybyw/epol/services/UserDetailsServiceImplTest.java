@@ -33,6 +33,7 @@ class UserDetailsServiceImplTest {
         mockUser.setName("testuser");
         mockUser.setPassword("password123");
 
+        // When the repository is called with the email, return the mock user
         when(userRepository.findFirstByEmail("test@example.com"))
                 .thenReturn(Optional.of(mockUser));
 
