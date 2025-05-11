@@ -26,6 +26,7 @@ class UserDetailsServiceImplTest {
     }
 
     @Test
+        // Arrange: Set up the mock user and define the behavior of the mock repository
     void loadUserByUsername_shouldReturnUserDetails_whenUserExists() {
         // Arrange
         User mockUser = new User();
