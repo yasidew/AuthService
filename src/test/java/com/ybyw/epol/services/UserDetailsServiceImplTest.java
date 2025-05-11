@@ -18,7 +18,7 @@ class UserDetailsServiceImplTest {
     private UserRepository userRepository;
     private UserDetailsServiceImpl userDetailsService;
 
-    //hi
+    // This method runs before each test to initialize the mocked dependencies and the service under test
     @BeforeEach
     void setUp() {
         userRepository = mock(UserRepository.class);
