@@ -52,7 +52,7 @@ class UserDetailsServiceImplTest {
 
     @Test
     void loadUserByUsername_shouldThrowException_whenUserNotFound() {
-        // Arrange
+        // Arrange: Set the repository to return empty for a non-existent user
         when(userRepository.findFirstByEmail("notfound@example.com"))
                 .thenReturn(Optional.empty());
 
