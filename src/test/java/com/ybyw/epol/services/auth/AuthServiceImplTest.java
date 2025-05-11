@@ -29,17 +29,22 @@ class AuthServiceImplTest {
     @Captor
     private ArgumentCaptor<User> userCaptor;
 
+    // Initialize mocks and service before each test method
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+
+        // Manually create the service instance (optional if using @InjectMocks alone)
         authService = new AuthServiceImpl(); // Manually instantiating the service
+
+        // Manually inject the mocked repository into the service
         authService.userRepository = userRepository; // Injecting the mock manually
     }
 
     @Test
     void createUser_shouldSaveUserAndReturnDto() {
-        // Arrange
+        // Arrange: Set up a new signup request
         SignupRequest request = new SignupRequest();
         request.setEmail("test@example.com");
         request.setName("Test User");
