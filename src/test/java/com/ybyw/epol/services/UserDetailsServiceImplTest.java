@@ -40,27 +40,29 @@ class UserDetailsServiceImplTest {
         // Act: Call the method under test
         UserDetails userDetails = userDetailsService.loadUserByUsername("test@example.com");
 
-        // Assert
+        // Assert: Verify that the returned UserDetails matches the mock user
         assertNotNull(userDetails);
         assertEquals("testuser", userDetails.getUsername());
         assertEquals("password123", userDetails.getPassword());
         assertTrue(userDetails.getAuthorities().isEmpty());
 
+        // Verify that the repository method was called exactly once
         verify(userRepository, times(1)).findFirstByEmail("test@example.com");
     }
 
     @Test
     void loadUserByUsername_shouldThrowException_whenUserNotFound() {
-        // Arrange
+        // Arrange: Set the repository to return empty for a non-existent user
         when(userRepository.findFirstByEmail("notfound@example.com"))
                 .thenReturn(Optional.empty());
 
-        // Act & Assert
+        // Act & Assert: Expect an exception when the user is not found
         UsernameNotFoundException exception = assertThrows(
                 UsernameNotFoundException.class,
                 () -> userDetailsService.loadUserByUsername("notfound@example.com")
         );
 
+        // Check that the exception message matches the expected one
         assertEquals("Username not found", exception.getMessage());
         verify(userRepository, times(1)).findFirstByEmail("notfound@example.com");
     }

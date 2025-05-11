@@ -17,74 +17,82 @@ import static org.mockito.Mockito.*;
 
 class AuthServiceImplTest {
 
-    // Mocked dependency for database operations
+    // Mock the UserRepository to isolate service logic from actual DB operations
     @Mock
     private UserRepository userRepository;
 
-    // Service under test with mocked dependencies injected
+    // AuthServiceImpl will have the above mock injected for testing
     @InjectMocks
     private AuthServiceImpl authService;
 
-    // Used to capture the User object passed to repository save
+    // Used to capture the actual User object passed to the repository's save method
     @Captor
     private ArgumentCaptor<User> userCaptor;
 
+    // Initialize mocks and service before each test method
     @BeforeEach
     void setUp() {
         // Initialize mocks before each test
         MockitoAnnotations.openMocks(this);
+
+        // Manually create the service instance (optional if using @InjectMocks alone)
         authService = new AuthServiceImpl(); // Manually instantiating the service
+
+        // Manually inject the mocked repository into the service
         authService.userRepository = userRepository; // Injecting the mock manually
     }
 
     @Test
     void createUser_shouldSaveUserAndReturnDto() {
-        // Arrange
+        // Arrange: Set up a new signup request
         SignupRequest request = new SignupRequest();
         request.setEmail("test@example.com");
         request.setName("Test User");
         request.setPassword("password");
 
-        // Define the behavior of save - returning a mocked saved user
+        // Define a mock user to simulate what the repository returns after saving
         User savedUser = new User();
         savedUser.setId(1L);
         savedUser.setEmail("test@example.com");
         savedUser.setName("Test User");
 
+        // Simulate repository behavior: when save is called, return the mock user
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
-        // Act
+        // Act: Call the method under test
         UserDto result = authService.createUser(request);
 
-        // Assert - Validate the result is not null and contains expected values
+        // Assert: Check returned DTO contains expected values
         assertNotNull(result);
         assertEquals("test@example.com", result.getEmail());
         assertEquals("Test User", result.getName());
 
-        // Verify that save() was called and capture the user object passed
+        // Verify that save was called and capture the User object passed
         verify(userRepository).save(userCaptor.capture());
 
-        // Ensure the default role is correctly set as LEARNER
+        // Check if the default user role was assigned as LEARNER
         assertEquals(UserRole.LEARNER, userCaptor.getValue().getRole());
     }
 
     @Test
     void hasUserWithEmail_shouldReturnTrueIfUserExists() {
+
         // Arrange - Simulate that a user exists for the given email
         when(userRepository.findFirstByEmail("exists@example.com"))
                 .thenReturn(Optional.of(new User()));
 
-        // Act & Assert - Verify that the method returns true
+        // Act & Assert: Method should return true if user is found
         assertTrue(authService.hasUserWithEmail("exists@example.com"));
     }
 
     @Test
     void hasUserWithEmail_shouldReturnFalseIfUserDoesNotExist() {
-        // Simulate that no user is found for the email
+
+        // Arrange: Simulate no instructor exists in the DB
         when(userRepository.findFirstByEmail("notfound@example.com"))
                 .thenReturn(Optional.empty());
 
-        // Verify that the method returns false
+        // Assert: Method should return false
         assertFalse(authService.hasUserWithEmail("notfound@example.com"));
     }
 
@@ -93,10 +101,10 @@ class AuthServiceImplTest {
         // Simulate that no instructor exists in the DB
         when(userRepository.findByRole(UserRole.INSTRUCTOR)).thenReturn(null);
 
-        // Call the method to create instructor
+        // Act: Attempt to create instructor
         authService.createInstructorAccount();
 
-        // Verify save was called and capture the instructor created
+        // Assert: Save should be called with a new User of role INSTRUCTOR
         verify(userRepository).save(userCaptor.capture());
         assertEquals("instructor", userCaptor.getValue().getName());
         assertEquals(UserRole.INSTRUCTOR, userCaptor.getValue().getRole());
@@ -104,23 +112,27 @@ class AuthServiceImplTest {
 
     @Test
     void createInstructorAccount_shouldNotCreateIfExists() {
-        // Simulate instructor already exists
+
+        // Arrange: Simulate that an instructor already exists
         when(userRepository.findByRole(UserRole.INSTRUCTOR)).thenReturn(new User());
 
-        // Attempt to create instructor account
+        // Act: Attempt to create instructor again
         authService.createInstructorAccount();
 
-        // Ensure no save was performed since user already exists
+        // Assert: Save should not be called again
         verify(userRepository, never()).save(any());
     }
 
     @Test
     void createAdminAccount_shouldCreateIfNotExists() {
-        // Simulate no admin user exists
+
+        // Arrange: Simulate admin role is not found in DB
         when(userRepository.findByRole(UserRole.ADMIN)).thenReturn(null);
 
+        // Act: Create default admin
         authService.createAdminAccount();
 
+        // Assert: Save should be called and captured for assertions
         verify(userRepository).save(userCaptor.capture());
         assertEquals("admin", userCaptor.getValue().getName());
         assertEquals(UserRole.ADMIN, userCaptor.getValue().getRole());
@@ -136,6 +148,8 @@ class AuthServiceImplTest {
     }
 
     @Test
+            
+        // Arrange: Create a list of users returned by the mock repository
     void getAllUsers_shouldReturnAllUserDtos() {
         List<User> users = Arrays.asList(
                 createUser(1L, "a@example.com", "User A"),
