@@ -104,7 +104,7 @@ class AuthServiceImplTest {
         // Act: Attempt to create instructor
         authService.createInstructorAccount();
 
-        // Verify save was called and capture the instructor created
+        // Assert: Save should be called with a new User of role INSTRUCTOR
         verify(userRepository).save(userCaptor.capture());
         assertEquals("instructor", userCaptor.getValue().getName());
         assertEquals(UserRole.INSTRUCTOR, userCaptor.getValue().getRole());
