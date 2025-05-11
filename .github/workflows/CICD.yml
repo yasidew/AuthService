@@ -27,6 +27,7 @@ jobs:
       - name: Push to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/authservice:latest
 
+# Deploys the latest Docker image on a self-hosted EC2 runner
   deploy:
     runs-on: self-hosted
     needs: build
@@ -38,9 +39,11 @@ jobs:
           docker network prune -f
           df -h  # Show disk space after cleanup
 
+      # Pull the latest Docker image from Docker Hub
       - name: Pull the latest Docker image
         run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/authservice:latest
 
+      # Stop and remove the old container if it's already running
       - name: Stop and remove old Docker container (if running)
         run: |
           sudo docker stop authservice-container || true
