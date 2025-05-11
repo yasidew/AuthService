@@ -148,8 +148,8 @@ class AuthServiceImplTest {
     }
 
     @Test
-            
-        // Arrange: Create a list of users returned by the mock repository
+
+        // Arrange: Create a list of users returned by the mock repositor
     void getAllUsers_shouldReturnAllUserDtos() {
         List<User> users = Arrays.asList(
                 createUser(1L, "a@example.com", "User A"),
