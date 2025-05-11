@@ -37,7 +37,7 @@ class UserDetailsServiceImplTest {
         when(userRepository.findFirstByEmail("test@example.com"))
                 .thenReturn(Optional.of(mockUser));
 
-        // Act
+        // Act: Call the method under test
         UserDetails userDetails = userDetailsService.loadUserByUsername("test@example.com");
 
         // Assert
