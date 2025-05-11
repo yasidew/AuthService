@@ -17,11 +17,11 @@ import static org.mockito.Mockito.*;
 
 class AuthServiceImplTest {
 
-    // Mocked dependency for database operations
+    // Mock the UserRepository to isolate service logic from actual DB operations
     @Mock
     private UserRepository userRepository;
 
-    // Service under test with mocked dependencies injected
+
     @InjectMocks
     private AuthServiceImpl authService;
 
