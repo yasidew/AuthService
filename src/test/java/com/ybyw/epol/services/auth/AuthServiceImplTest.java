@@ -81,7 +81,7 @@ class AuthServiceImplTest {
         when(userRepository.findFirstByEmail("exists@example.com"))
                 .thenReturn(Optional.of(new User()));
 
-        // Act & Assert - Verify that the method returns true
+        // Act & Assert: Method should return true if user is found
         assertTrue(authService.hasUserWithEmail("exists@example.com"));
     }
 
