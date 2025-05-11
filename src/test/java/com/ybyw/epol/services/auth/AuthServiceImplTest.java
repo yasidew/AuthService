@@ -101,7 +101,7 @@ class AuthServiceImplTest {
         // Simulate that no instructor exists in the DB
         when(userRepository.findByRole(UserRole.INSTRUCTOR)).thenReturn(null);
 
-        // Call the method to create instructor
+        // Act: Attempt to create instructor
         authService.createInstructorAccount();
 
         // Verify save was called and capture the instructor created
