@@ -56,6 +56,7 @@ class AuthServiceImplTest {
         savedUser.setEmail("test@example.com");
         savedUser.setName("Test User");
 
+        // Simulate repository behavior: when save is called, return the mock user
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
         // Act
