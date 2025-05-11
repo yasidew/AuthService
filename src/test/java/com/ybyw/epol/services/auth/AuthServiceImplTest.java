@@ -62,7 +62,7 @@ class AuthServiceImplTest {
         // Act: Call the method under test
         UserDto result = authService.createUser(request);
 
-        // Assert - Validate the result is not null and contains expected values
+        // Assert: Check returned DTO contains expected values
         assertNotNull(result);
         assertEquals("test@example.com", result.getEmail());
         assertEquals("Test User", result.getName());
