@@ -40,7 +40,7 @@ class UserDetailsServiceImplTest {
         // Act: Call the method under test
         UserDetails userDetails = userDetailsService.loadUserByUsername("test@example.com");
 
-        // Assert
+        // Assert: Verify that the returned UserDetails matches the mock user
         assertNotNull(userDetails);
         assertEquals("testuser", userDetails.getUsername());
         assertEquals("password123", userDetails.getPassword());
