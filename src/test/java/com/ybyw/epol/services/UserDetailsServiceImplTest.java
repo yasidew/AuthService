@@ -46,6 +46,7 @@ class UserDetailsServiceImplTest {
         assertEquals("password123", userDetails.getPassword());
         assertTrue(userDetails.getAuthorities().isEmpty());
 
+        // Verify that the repository method was called exactly once
         verify(userRepository, times(1)).findFirstByEmail("test@example.com");
     }
 
