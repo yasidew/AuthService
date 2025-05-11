@@ -132,6 +132,7 @@ class AuthServiceImplTest {
         // Act: Create default admin
         authService.createAdminAccount();
 
+        // Assert: Save should be called and captured for assertions
         verify(userRepository).save(userCaptor.capture());
         assertEquals("admin", userCaptor.getValue().getName());
         assertEquals(UserRole.ADMIN, userCaptor.getValue().getRole());
