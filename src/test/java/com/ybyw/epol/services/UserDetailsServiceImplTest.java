@@ -56,7 +56,7 @@ class UserDetailsServiceImplTest {
         when(userRepository.findFirstByEmail("notfound@example.com"))
                 .thenReturn(Optional.empty());
 
-        // Act & Assert
+        // Act & Assert: Expect an exception when the user is not found
         UsernameNotFoundException exception = assertThrows(
                 UsernameNotFoundException.class,
                 () -> userDetailsService.loadUserByUsername("notfound@example.com")
