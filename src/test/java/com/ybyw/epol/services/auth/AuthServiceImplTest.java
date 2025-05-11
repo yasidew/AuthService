@@ -50,7 +50,7 @@ class AuthServiceImplTest {
         request.setName("Test User");
         request.setPassword("password");
 
-        // Define the behavior of save - returning a mocked saved user
+        // Define a mock user to simulate what the repository returns after saving
         User savedUser = new User();
         savedUser.setId(1L);
         savedUser.setEmail("test@example.com");
