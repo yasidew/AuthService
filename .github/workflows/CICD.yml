@@ -7,7 +7,7 @@ on:
 jobs:
   # CI Job - Builds and pushes the Docker image to Docker Hub
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest # Uses the latest Ubuntu runner from GitHub
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
