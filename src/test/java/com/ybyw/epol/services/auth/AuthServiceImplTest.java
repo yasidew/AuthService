@@ -21,7 +21,7 @@ class AuthServiceImplTest {
     @Mock
     private UserRepository userRepository;
 
-
+    // AuthServiceImpl will have the above mock injected for testing
     @InjectMocks
     private AuthServiceImpl authService;
 
