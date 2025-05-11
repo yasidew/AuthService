@@ -129,6 +129,7 @@ class AuthServiceImplTest {
         // Arrange: Simulate admin role is not found in DB
         when(userRepository.findByRole(UserRole.ADMIN)).thenReturn(null);
 
+        // Act: Create default admin
         authService.createAdminAccount();
 
         verify(userRepository).save(userCaptor.capture());
