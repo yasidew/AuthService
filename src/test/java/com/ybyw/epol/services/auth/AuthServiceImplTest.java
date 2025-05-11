@@ -17,7 +17,7 @@ import static org.mockito.Mockito.*;
 
 class AuthServiceImplTest {
 
-    // Mock the UserRepository to isolate service logic from actual DB operations
+
     @Mock
     private UserRepository userRepository;
 
