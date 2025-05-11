@@ -49,5 +49,6 @@ jobs:
           sudo docker stop authservice-container || true
           sudo docker rm -f authservice-container || true
 
+      # Run the new Docker container with the updated image
       - name: Run new Docker container
         run: sudo docker run -d --restart unless-stopped -p 8080:8080 --name authservice-container ${{ secrets.DOCKER_USERNAME }}/authservice:latest
