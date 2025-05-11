@@ -88,7 +88,7 @@ class AuthServiceImplTest {
     @Test
     void hasUserWithEmail_shouldReturnFalseIfUserDoesNotExist() {
 
-        // Simulate that no user is found for the email
+        // Arrange: Simulate no instructor exists in the DB
         when(userRepository.findFirstByEmail("notfound@example.com"))
                 .thenReturn(Optional.empty());
 
