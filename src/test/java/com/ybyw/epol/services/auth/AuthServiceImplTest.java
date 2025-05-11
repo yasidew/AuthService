@@ -59,7 +59,7 @@ class AuthServiceImplTest {
         // Simulate repository behavior: when save is called, return the mock user
         when(userRepository.save(any(User.class))).thenReturn(savedUser);
 
-        // Act
+        // Act: Call the method under test
         UserDto result = authService.createUser(request);
 
         // Assert - Validate the result is not null and contains expected values
