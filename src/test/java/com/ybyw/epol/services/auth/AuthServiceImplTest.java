@@ -125,8 +125,8 @@ class AuthServiceImplTest {
 
     @Test
     void createAdminAccount_shouldCreateIfNotExists() {
-        
-        // Simulate no admin user exists
+
+        // Arrange: Simulate admin role is not found in DB
         when(userRepository.findByRole(UserRole.ADMIN)).thenReturn(null);
 
         authService.createAdminAccount();
