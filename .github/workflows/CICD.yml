@@ -5,24 +5,29 @@ on:
     branches: [ "main" ]
 
 jobs:
+  # CI Job - Builds and pushes the Docker image to Docker Hub
   build:
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-latest  # Uses the latest Ubuntu runner from GitHub
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
+      # Log in to Docker Hub using secrets for authentication
       - name: Login to Docker Hub
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
         run: echo $DOCKER_PASSWORD | docker login -u $DOCKER_USERNAME --password-stdin
 
+      # Build the Docker image using the Dockerfile in the root directory
       - name: Build the Docker image
         run: docker build -t ${{ secrets.DOCKER_USERNAME }}/authservice:latest .
 
+      #Push the built image to Docker Hub
       - name: Push to Docker Hub
         run: docker push ${{ secrets.DOCKER_USERNAME }}/authservice:latest
 
+# Deploys the latest Docker image on a self-hosted EC2 runner
   deploy:
     runs-on: self-hosted
     needs: build
@@ -34,13 +39,16 @@ jobs:
           docker network prune -f
           df -h  # Show disk space after cleanup
 
+      # Pull the latest Docker image from Docker Hub
       - name: Pull the latest Docker image
         run: sudo docker pull ${{ secrets.DOCKER_USERNAME }}/authservice:latest
 
+      # Stop and remove the old container if it's already running
       - name: Stop and remove old Docker container (if running)
         run: |
           sudo docker stop authservice-container || true
           sudo docker rm -f authservice-container || true
 
+      # Run the new Docker container with the updated image
       - name: Run new Docker container
         run: sudo docker run -d --restart unless-stopped -p 8080:8080 --name authservice-container ${{ secrets.DOCKER_USERNAME }}/authservice:latest
